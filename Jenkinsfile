@@ -9,7 +9,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
-                git branch: 'main', url: 'https://github.com/your-username/webapp-demo.git'
+                git branch: 'main', url: 'https://github.com/Aditivk15/webapp-demo.git'
+
             }
         }
 
