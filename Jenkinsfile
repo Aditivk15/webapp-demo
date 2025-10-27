@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'MAVEN_HOME' // Define in Jenkins → Manage Jenkins → Global Tool Configuration
+         maven 'Maven 3.9.11' // Define in Jenkins → Manage Jenkins → Global Tool Configuration
     }
 
     stages {
