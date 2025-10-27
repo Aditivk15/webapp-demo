@@ -5,14 +5,16 @@ pipeline {
          maven 'Maven 3.9.11' // Define in Jenkins → Manage Jenkins → Global Tool Configuration
     }
 
-    stages {
+
+     stages {
         stage('Checkout') {
             steps {
-                echo 'Cloning repository...'
-                git branch: 'main', url: 'https://github.com/Aditivk15/webapp-demo.git'
-
+                git branch: 'main',
+                    credentialsId: 'github-token',   // <-- Set your GitHub token ID here
+                    url: 'https://github.com/Aditivk15/webapp-demo.git'
             }
         }
+    
 
         stage('Build') {
             steps {
@@ -21,14 +23,18 @@ pipeline {
             }
         }
 
+        
         stage('Deploy to Tomcat') {
             steps {
-                echo 'Deploying WAR file to Tomcat...'
-                deploy adapters: [tomcat9(
-                    credentialsId: 'tomcat-credentials',
-                    path: '',
-                    url: 'http://localhost:8081'
-                )], contextPath: 'webapp-demo', war: '**/target/*.war'
+                deploy adapters: [
+                    tomcat9(
+                        credentialsId: 'tomcat-credentials',
+                        path: '',
+                        url: 'http://localhost:8080'
+                    )
+                ],
+                contextPath: 'webapp-demo',
+                war: '**/target/*.war'
             }
         }
     }
